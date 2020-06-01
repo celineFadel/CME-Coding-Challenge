@@ -1,25 +1,67 @@
 import React from 'react';
-import { AsyncStorage, Image, ScrollView, StyleSheet, View } from 'react-native';
+import { AsyncStorage, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { createStore } from 'redux';
-import Square from '../library/square';
-import Circle from '../library/circle';
+
+function counter(state = 0, action) {
+  switch (action.type) {
+    case 'INCREMENT':
+        return state + 1
+    case 'DECREMENT':
+        return state - 1
+    default:
+        return state
+    }
+};
+const store = createStore(counter);
 
 export default class FirstPage extends React.Component {
   state = {
+    counter: 0
+  };
+  
+  render() {
+
+  onPressMinus = () => {
+    let currentCount = store.getState();
+    if(currentCount<=0) {
+      currentCount = 0;
+    }
+    else {
+      store.dispatch({ type: 'DECREMENT' });
+      store.subscribe(() => this.setState(counter));
+    }
   };
 
-  render() {
+  onPressPlus = () => {
+    store.dispatch({ type: 'INCREMENT' });
+    store.subscribe(() => this.setState(counter));
+  };
     return (
       <View style={styles.mainContainer}>
         <View style={styles.innerContainer}>
-          <Square sign={"-"} />
-          <Circle />
-          <Square sign={"+"} />
+
+          {/* The decrement button */}
+          <TouchableOpacity style={styles.square} onPress={onPressMinus}>
+            <Text>-</Text>
+          </TouchableOpacity>
+
+          {/* The current number */}
+          <View style={styles.circle}>
+            <Text>{store.getState()}</Text>
+          </View>
+
+          {/* The increment button */}
+          <TouchableOpacity style={styles.square} onPress={onPressPlus}>
+            <Text>+</Text>
+          </TouchableOpacity>
+
         </View>
       </View>
     );
-  }
+  };
 }
+
+
 
 const styles = StyleSheet.create({
   innerContainer: {
@@ -34,5 +76,26 @@ const styles = StyleSheet.create({
     marginTop: '40%',
     height: 150,
     width:'100%'
+  },
+  square: {
+    height: 75,
+    width: 75,
+    borderColor: 'black',
+    borderWidth: 1,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '2%'
+  },
+  circle: {
+    height: 125,
+    width: 125,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 125/2,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '2%'
   }
 });
