@@ -12,6 +12,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/navigation/appnav';
 import NavigationBar from 'react-native-navbar';
 
+console.disableYellowBox = true;
+
 export default function App() {
   return (
     <NavigationContainer>
