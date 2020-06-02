@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import FirstPage from '../screens/FirstPage';
+import FirstPage from '../screens/index';
 import SecondPage from '../screens/SecondPage';
-import Details from '../screens/Details';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,7 +14,6 @@ export default function MyTabs() {
     >
       <Tab.Screen name="First Page" component={FirstPage} />
       <Tab.Screen name="Second Page" component={SecondPage} />
-      {/* <Tab.Screen name="Details" component={Details} /> */}
     </Tab.Navigator>
   );
 }
