@@ -4,7 +4,7 @@ import {Image, StyleSheet, View, Text, TouchableOpacity, } from "react-native";
 export default class listItem extends React.Component {
   render() {
     return (
-      <TouchableOpacity style={styles.mainContainer}>
+      <TouchableOpacity style={styles.mainContainer} onPress = { ({ navigation }) => {navigation.navigate('Details');}}>
         <View style={styles.imageContainer}>
           <Image style={styles.picture} source={this.props.imagePath} />
         </View>
