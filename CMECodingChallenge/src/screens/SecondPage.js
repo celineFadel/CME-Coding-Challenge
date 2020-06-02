@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { createStore } from 'redux';
 
 function counter(state = 0, action) {
@@ -20,22 +20,22 @@ export default class FirstPage extends React.Component {
   };
   
   render() {
+    onPressMinus = () => {
+      let currentCount = store.getState();
+      if(currentCount<=0) {
+        currentCount = 0;
+      }
+      else {
+        store.dispatch({ type: 'DECREMENT' });
+        store.subscribe(() => this.setState(counter));
+      }
+    };
 
-  onPressMinus = () => {
-    let currentCount = store.getState();
-    if(currentCount<=0) {
-      currentCount = 0;
-    }
-    else {
-      store.dispatch({ type: 'DECREMENT' });
+    onPressPlus = () => {
+      store.dispatch({ type: 'INCREMENT' });
       store.subscribe(() => this.setState(counter));
-    }
-  };
+    };
 
-  onPressPlus = () => {
-    store.dispatch({ type: 'INCREMENT' });
-    store.subscribe(() => this.setState(counter));
-  };
     return (
       <View style={styles.mainContainer}>
         <View style={styles.innerContainer}>
