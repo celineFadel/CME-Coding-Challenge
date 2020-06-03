@@ -5,7 +5,7 @@ import Routes from '../navigation/Routes';
 class reactTutorialApp extends Component {
    render() {
       return (
-         <Routes />
+         <Routes navigation={this.props.navigation} />
       )
    }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,6 +13,10 @@ import ListItem from '../library/listItem';
 import { Actions } from 'react-native-router-flux';
 
 export default class FirstPage extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
   state = {
     search: '',
     items: [],
@@ -31,7 +36,7 @@ export default class FirstPage extends React.Component {
         },
       },
     ]},
-    unitTest: true,
+    unitTest: false,
     limit: 6,
   };
 
@@ -39,7 +44,12 @@ export default class FirstPage extends React.Component {
     this.searchFilterFunction();
   };
 
+  hideTab = () => {
+    
+  };
+
   checkDetails = (title, description, url) => {
+    this.hideTab();
     Actions.Details({title: title, description: description, imagePath: url});
   };
 
@@ -63,6 +73,23 @@ export default class FirstPage extends React.Component {
     this.setState({search});
   };
 
+  activateUnitTest = () => {
+    this.setState({unitTest: true});
+    this.searchFilterFunction();
+  }
+
+  handleError = (err) => {
+    let msg = "We will now activate the unit test!";
+    Alert.alert(
+      "An error was detected!",
+      msg,
+      [
+        { text: "OK", onPress: () => this.activateUnitTest() }
+      ],
+      { cancelable: false }
+    );
+  };
+
   searchFilterFunction = (text) => {
     let search = '';
     if (text) search = `&q=${encodeURI(text)}`;
@@ -70,7 +97,8 @@ export default class FirstPage extends React.Component {
       let items = this.getListElements(this.state.unitTestObj);
       this.setState({items});
     }
-    fetch(
+    else {
+      fetch(
       `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${this.state.limit}&key=AIzaSyAxitFZFnBYVi8YSt2KKxq7Vcd28YVZlO4${search}`,
     )
       .then((i) => i.json())
@@ -80,7 +108,9 @@ export default class FirstPage extends React.Component {
       })
       .catch((err) => {
         //handle the error
+        this.handleError(err);
       });
+    }
   };
 
   render() {

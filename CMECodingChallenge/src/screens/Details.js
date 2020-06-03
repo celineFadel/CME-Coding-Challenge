@@ -6,8 +6,7 @@ export default class FirstPage extends React.Component {
     };
 
     componentWillMount = () => {
-        console.log(this.props.imagePath);
-        
+       
     };
 
     render() {
