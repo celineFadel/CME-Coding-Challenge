@@ -38,6 +38,7 @@ export default class FirstPage extends React.Component {
     ]},
     unitTest: false,
     limit: 6,
+    key: 'AIzaSyAxitFZFnBYVi8YSt2KKxq7Vcd28YVZlO4'
   };
 
   componentWillMount = () => {
@@ -99,7 +100,7 @@ export default class FirstPage extends React.Component {
     }
     else {
       fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${this.state.limit}&key=AIzaSyAxitFZFnBYVi8YSt2KKxq7Vcd28YVZlO4${search}`,
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${this.state.limit}&key=${this.state.key}${search}`,
     )
       .then((i) => i.json())
       .then((obj) => {
