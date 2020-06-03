@@ -25,7 +25,7 @@ Youtube API:
 *click on API key and give it a name
 *put restrictions
 *copy the api key (it will be in the credentials section in the side bar)
-*Replace it in CMECodingChallenge/src/screens/FirstPage.js in the key state
+*Replace it in `CMECodingChallenge/src/screens/FirstPage.js` in the key state
 
 
 
