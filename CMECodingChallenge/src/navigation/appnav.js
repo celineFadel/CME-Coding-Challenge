@@ -5,7 +5,7 @@ import SecondPage from '../screens/SecondPage';
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function MyTabs() {
+export default function MyTabs({ navigation, route }) {  
   return (
     <Tab.Navigator
         initialRouteName="FirstPage" 

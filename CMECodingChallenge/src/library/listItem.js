@@ -8,7 +8,7 @@ export default class listItem extends React.Component {
     return (
       <TouchableOpacity style={styles.mainContainer} onPress={()=>this.props.onPress(this.props.name, this.props.content, this.props.imagePath)}>
         <View style={styles.imageContainer}>
-          <Image style={styles.picture} source={this.props.imagePath} />
+          <Image style={styles.picture} source={this.props.imagePath} defaultSource={require('../assets/logo.png')} />
         </View>
         <View style = {styles.textContainer}>
           <Text style={styles.title}>{this.props.name}</Text>
