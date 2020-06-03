@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ActivityIndicator,
   Alert,
   ScrollView,
   StyleSheet,
@@ -38,7 +39,8 @@ export default class FirstPage extends React.Component {
     ]},
     unitTest: false,
     limit: 6,
-    key: 'AIzaSyAxitFZFnBYVi8YSt2KKxq7Vcd28YVZlO4'
+    key: 'AIzaSyAxitFZFnBYVi8YSt2KKxq7Vcd28YVZlO4',
+    isLoading: true
   };
 
   componentWillMount = () => {
@@ -110,34 +112,37 @@ export default class FirstPage extends React.Component {
       .catch((err) => {
         //handle the error
         this.handleError(err);
-      });
+      })
+      .finally(() => this.setState({isLoading: false}));
     }
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView
-          style={styles.scroller}
-          contentContainerStyle={{
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+        {this.state.isLoading ? <ActivityIndicator style={styles.loader} /> : (
+         <ScrollView
+         style={styles.scroller}
+         contentContainerStyle={{
+           justifyContent: 'center',
+           alignItems: 'center',
+         }}>
 
-        <TextInput
-          style={styles.textInputStyle}
-          onChangeText={(text) => this.updateSearch(text)}
-          value={this.state.text}
-          underlineColorAndroid="transparent"
-          placeholder="Search Here"
-          returnKeyType="search"
-        />
-        <Button
-          title="Submit"
-          onPress={() => this.searchFilterFunction(this.state.search)}
-        />
-          {this.state.items}
-        </ScrollView>
+       <TextInput
+         style={styles.textInputStyle}
+         onChangeText={(text) => this.updateSearch(text)}
+         value={this.state.text}
+         underlineColorAndroid="transparent"
+         placeholder="Search Here"
+         returnKeyType="search"
+       />
+       <Button
+         title="Submit"
+         onPress={() => this.searchFilterFunction(this.state.search)}
+       />
+         {this.state.items}
+       </ScrollView>
+      )}
       </View>
     );
   }
@@ -187,4 +192,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: '2%'
   },
+  loader: {
+    marginTop: '50%'
+  }
 });
